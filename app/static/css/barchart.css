@@ -1,14 +1,14 @@
 
-.bar {
-	fill: steelblue;
+.line {
+	stroke: steelblue;
+	cursor: crosshair;
+	background-color: #fff;
+	border-top: 2px dashed #8c8b8b;
+	stroke-linecap: round;
+}
+
+.line:hover {
+	stroke: DarkOrange;
 	cursor: crosshair;
 }
 
-.bar:hover {
-	fill: DarkOrange;
-	cursor: crosshair;
-}
-
-.dashed{
-   stroke-dasharray: 5,5; 
-}

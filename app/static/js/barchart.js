@@ -97,22 +97,35 @@ chart_group.append("g")
     // .style("text-anchor", "start");
 
 chart_group.append("g")
+    .attr("transform", "translate(" + -10 + "," + 0 + ")")
     .call(d3.axisLeft(y));
 
 var map = d3.map(data[0]); 
 var previous_data = d3.map(previous_data[0]); 
 
-let chart = chart_group.selectAll(".bar")
+
+
+
+let chart = chart_group.selectAll(".line")
 
     .data(previous_data.entries())
     .enter()
-    .append("rect")
+    //.append("rect")
+    .append("line")
     .attr('stroke', 'black')
-    .attr("class", "bar")
-    .attr("x", 1)
-    .attr("y", function (d) { return y(d.key) })
+    .attr("class", "line")
+
+    .attr("x1", 1)
+    .attr("x2", function(d) { return x(d.value);})
+
+    .attr("y1", function (d) { return y(d.key) + 20 })
+    .attr("y2", function (d) { return y(d.key) + 20 })
+    .attr("stroke-width", 20)
+
+    //.attr("x", 1)
+    //.attr("y", function (d) { return y(d.key) })
     .attr("width", function(d) { return x(d.value); })
-    .attr("height", y.bandwidth())
+    //.attr("height", y.bandwidth())
 
 
 chart
@@ -152,7 +165,7 @@ chart
     //.style("fill", "red")
     //.attr("delay", function(d,i){return 1000})
     .attr("duration", function(d,i){return 10000})
-    .attr("width", function(d) {return x(d.value);})
+    .attr("x2", function(d) {return x(d.value);})
 
 // text label for the x axis
 svgContainer.append("text")             
@@ -162,6 +175,7 @@ svgContainer.append("text")
   .style("text-anchor", "middle")
   .style("font-size", "13px")
   .text("Percentage");
+
 
 chart_group.append("text")
         .attr("class", "title")
@@ -173,7 +187,7 @@ chart_group.append("text")
         .text("Rental statistics of " + selected_area);
 
 // Code for vertical bar chart
-// chart_group.selectAll(".bar")
+// chart_group.selectAll(".line")
 //     .data(map.entries())
 //     .enter()
 //     .append("rect")
