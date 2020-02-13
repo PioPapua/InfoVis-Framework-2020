@@ -8,3 +8,7 @@
 	fill: DarkOrange;
 	cursor: crosshair;
 }
+
+.dashed{
+   stroke-dasharray: 5,5; 
+}

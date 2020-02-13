@@ -83,9 +83,10 @@ var chart_group = svgContainer.append("g")
 // y.domain([0, 100]);
 
 x.domain([0, 100]);
-y.domain(x_variables);
+y.domain(Object.keys(data[0]));
 
 chart_group.append("g")
+    .attr("id", "axis_bottom")
     .attr("transform", "translate(" + 0 + "," + chart_height + ")")
     .call(d3.axisBottom(x));
     // Code for vertical bar chart
@@ -99,17 +100,23 @@ chart_group.append("g")
     .call(d3.axisLeft(y));
 
 var map = d3.map(data[0]); 
+var previous_data = d3.map(previous_data[0]); 
 
+let chart = chart_group.selectAll(".bar")
 
-chart_group.selectAll(".bar")
-    .data(map.entries())
+    .data(previous_data.entries())
     .enter()
     .append("rect")
+    .attr('stroke', 'black')
     .attr("class", "bar")
     .attr("x", 1)
     .attr("y", function (d) { return y(d.key) })
     .attr("width", function(d) { return x(d.value); })
     .attr("height", y.bandwidth())
+
+
+chart
+    .data(map.entries())
     .on("mouseover", function(d, i) {
         var x_var = d.key;
         var value = d.value;
@@ -118,8 +125,7 @@ chart_group.selectAll(".bar")
         var definition = info[1];
 
         displayTooltip("<b>Variable: </b>" + label + "<br /><b>Percentage: </b>" + 
-            value + "%<br /><b>Explanation: </b>" + definition)
-
+            value + "%<br /><b>Explanation: </b>" + definition + i)
         //d3.select(this).attr("fill", "DarkOrange");
     })
     .on("mousemove", function(d, i) {
@@ -130,7 +136,7 @@ chart_group.selectAll(".bar")
         var definition = info[1];
 
         displayTooltip("<b>Variable: </b>" + label + "<br /><b>Percentage: </b>" + 
-            value + "%<br /><b>Explanation: </b>" + definition)
+            value + "%<br /><b>Explanation: </b>" + definition+ i)
 
         //d3.select(this).attr("fill", "DarkOrange");
     })
@@ -138,6 +144,15 @@ chart_group.selectAll(".bar")
         hideTooltip();
         //d3.select(this).attr("fill", "steelblue");
     });
+
+chart
+    .data(map.entries())
+    //.enter()
+    .transition()
+    //.style("fill", "red")
+    //.attr("delay", function(d,i){return 1000})
+    .attr("duration", function(d,i){return 10000})
+    .attr("width", function(d) {return x(d.value);})
 
 // text label for the x axis
 svgContainer.append("text")             

@@ -8,13 +8,19 @@ function displayTooltip(htmlText, waiting_time=false) {
 	tooltip.style("left", Math.max(0, tooltipPosition) + "px")
 			.style("top", (d3.event.pageY + 15) + "px")
 			.style("width", (tooltipLength * 1.5 + 30) + "px")
-			.style("display", "inline")
-			.html(htmlText);
+			.style("visibility", "visible")
+			.style("opacity", "1")
+
+			
+			.html(htmlText)
+
 };
 
 function hideTooltip() {
 	MOUSEOVER = false;
 
 	var tooltip = d3.select("#tooltip");
-	tooltip.style("display","none");
+	tooltip.style("visibility", "hidden")
+			.style("opacity", "0")
+
 }

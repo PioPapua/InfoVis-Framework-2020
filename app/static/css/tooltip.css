@@ -14,7 +14,10 @@
     background: white;
     opacity: 0.9;
     pointer-events: none;
-    display: none;
+    display: inline;
     z-index: 1021;
     font-size: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0s, opacity 0.5s linear;
 }

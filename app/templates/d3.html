@@ -22,6 +22,7 @@
 		{% endfor %}
 	</select>
 	<input type="submit">
+ 	<input type="hidden" id="previously_selected_area_name" name="previously_selected_area_name" value="{{ selected_area_name }}">
 </form>
 <div class="mt-3" id="barchart">
 </div>
@@ -31,6 +32,7 @@
 	var meta_data = {{ meta_data |safe }};
 	var x_variables = {{ x_variables |safe}};
 	var selected_area = {{ selected_area_name |tojson }};
+	var previous_data = {{ previous_data |safe }};
 </script>
 
 <link rel="stylesheet" type="text/css" href="../static/css/barchart.css">
